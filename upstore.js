@@ -55,7 +55,7 @@ window.UPSTORE = {
 									element.onload = function()
 									{
 										if(loaded == object.iteration)
-										loaded++;
+											loaded++;
 									}
 									if(loaded == object.iteration)
 									// append the result
@@ -119,6 +119,7 @@ window.UPSTORE = {
 	 */
 	retrieve: function(appId, arrKey, element)
 	{
+		arrKey = arrKey||"customize";
 		var url = UPSTORE.server.base+UPSTORE.server.retrieve.replace("{appId}", appId).replace("{consumerKey}", UPSTORE.details.consumerKey).replace("{arrKey}", arrKey);
 		return new Promise(function(resolve, error) {
 			var xmlHttp = new XMLHttpRequest();
@@ -145,14 +146,14 @@ window.UPSTORE = {
 	 process: function(appId, arrKey, element, properties)
 	 {
 		element.setAttribute('upstore-init', appId);
+		if(!window.UPSTORE.bindings[appId])
+			window.UPSTORE.bindings[appId] = {};
+		window.UPSTORE.bindings[appId][arrKey] = properties;
 		var key = "";
 		for(key in properties)
 		{
 			window.UPSTORE.updateBinding(appId, arrKey, key, properties[key])
 		}
-		if(!window.UPSTORE.bindings[appId])
-			window.UPSTORE.bindings[appId] = {};
-		window.UPSTORE.bindings[appId][arrKey] = properties;
 	},
 
 	/**
@@ -177,6 +178,10 @@ window.UPSTORE = {
 	 */
 	updateBinding: function(appId, arrKey, key, value)
 	{
+		arrKey = arrKey||"customize";
+		// update the binding setting
+		window.UPSTORE.bindings[appId][arrKey][key] = value;
+
 		// first bind the text
 		var main = '[upstore-init="'+appId+'"][upstore-arr-key="'+arrKey+'"]';
 		var i, search = document.querySelectorAll(main+'[upstore-bind="'+key+'"], '+main+' [upstore-bind="'+key+'"]'), json = {};
