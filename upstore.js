@@ -7,7 +7,7 @@ window.UPSTORE = {
 	/**
 	 * Authentication details
 	 */
-	details: {},
+	consumerKey: "",
 
 	/**
 	 * Show editors of UPP
@@ -35,7 +35,7 @@ window.UPSTORE = {
 	{
 		// promise of new app when ready
 		return new Promise(function(resolve, error) {
-			var xmlHttp = new XMLHttpRequest(), url = UPSTORE.server.base+UPSTORE.server.newUpp.replace("{appId}", appId).replace("{consumerKey}", UPSTORE.details.consumerKey);
+			var xmlHttp = new XMLHttpRequest(), url = UPSTORE.server.base+UPSTORE.server.newUpp.replace("{appId}", appId).replace("{consumerKey}", UPSTORE.consumerKey);
 			xmlHttp.onreadystatechange = function() {
 				if (xmlHttp.readyState == 4) {
 					var json = JSON.parse(xmlHttp.responseText);
@@ -98,7 +98,7 @@ window.UPSTORE = {
 	retrieve: function(appId, arrKey, element)
 	{
 		arrKey = arrKey||"customize";
-		var url = UPSTORE.server.base+UPSTORE.server.retrieve.replace("{appId}", appId).replace("{consumerKey}", UPSTORE.details.consumerKey).replace("{arrKey}", arrKey);
+		var url = UPSTORE.server.base+UPSTORE.server.retrieve.replace("{appId}", appId).replace("{consumerKey}", UPSTORE.consumerKey).replace("{arrKey}", arrKey);
 		return new Promise(function(resolve, error) {
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.onreadystatechange = function() {
