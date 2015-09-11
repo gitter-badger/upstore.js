@@ -9,7 +9,21 @@ $("modal").each(function() {
 		<div upstore-bind='title'></div> \
 		<div upstore-bind='div'></div> \
 	")
-	UPSTORE.retrieve(APP_ID, $(this).attr('upstore-arr-key'), this).then(function(response) {
+	var ARR_KEY = $(this).attr('upstore-arr-key');
+	UPSTORE.retrieve(APP_ID, ARR_KEY, this).then(function(response) {
 
 	});
+
+	// only on customization process
+	if(UPSTORE.showEditors)
+	{
+		var selector = this.querySelectorAll('[upstore-bind]'), i;
+		for(i = 0;i<selector.length;i++)
+		{
+			selector[i].addEventListener('keyup', function() {
+				window.UPSTORE.updateBinding(APP_ID, ARR_KEY, $(this).attr('upstore-bind'), $(this).html())
+			})
+		}
+		$(selector).attr('contenteditable', true)
+	}
 })
