@@ -10,6 +10,6 @@ $("modal").each(function() {
 		<div upstore-bind='div'></div> \
 	")
 	UPSTORE.retrieve(APP_ID, $(this).attr('upstore-arr-key'), this).then(function(response) {
-		// console.info(response)
+
 	});
 })

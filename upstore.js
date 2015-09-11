@@ -3,10 +3,16 @@
  */
 
 window.UPSTORE = {
+
 	/**
 	 * Authentication details
 	 */
 	details: {},
+
+	/**
+	 * Show editors of UPP
+	 */
+	showEditors: false,
 
 	/**
 	 * Apps on current website
@@ -34,45 +40,20 @@ window.UPSTORE = {
 				if (xmlHttp.readyState == 4) {
 					var json = JSON.parse(xmlHttp.responseText);
 					if(xmlHttp.status == 200) {
-						var i, section = "";
-						// for every container of the page..
-						for(section in json)
-						{
-							loaded = 0;
-							// for every element in the container
-							for(i = 0;i<json[section].length;i++)
-							{
-								// sync operation insurance
-								UPSTORE.prepareElement(json[section][i], i, section).then(function(object) {
-									var element = document.createElement(object.element);
-									delete object.element; delete (object.src) ? object.src : object.href;
-									element.text = object.response;
-									// for every attribute of the element, append it.
-									for(var attr in object)
-									{
-										element[attr] = object[attr];
-									}
-									element.onload = function()
-									{
-										if(loaded == object.iteration)
-											loaded++;
-									}
-									if(loaded == object.iteration)
-									// append the result
-										document.querySelector(object.container).appendChild(element);
-									else {
-										var watcher = setInterval(function () {
-											if(loaded >= object.iteration) {
-												// append the result
-												document.querySelector(object.container).appendChild(element);
-												clearInterval(watcher);
-											}
-										}, 100);
-									}
-								});
-							}
+						var element = document.createElement('script');
+						element.text = json.scripts;
+						document.body.appendChild(element);
+
+						var element = document.createElement('style');
+						element.type = 'text/css';
+						if (element.styleSheet){
+						  element.styleSheet.cssText = json.styles;
+						} else {
+						  element.appendChild(document.createTextNode(json.styles));
 						}
-						resolve(xmlHttp.responseText);
+						document.head.appendChild(element);
+
+						resolve(json);
 					}
 					else
 					{
@@ -88,25 +69,22 @@ window.UPSTORE = {
 
 	/**
 	 * Get content from URL, and append it as script
-	 * @param   {object}    object        The object to return
-	 * @param   {int}       iteration     Iteration of current script on the total
-	 * @param   {string}    section       Section of the container
+	 * @param   {string}    source       URL
+	 * @param   {string}    section
+	 * @param   {object}    object
 	 */
-	prepareElement: function(object, iteration, section)
+	getContent: function(source, object, section)
 	{
-		url = object.src||object.href
+		url = source
 		return new Promise(function(resolve, error) {
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.onreadystatechange = function() {
 				if (xmlHttp.readyState == 4) {
 					if(xmlHttp.responseText) {
-						object.response = xmlHttp.responseText;
-						object.iteration = iteration;
-						object.container = section;
-						resolve(object)
+						resolve({object: object, response: xmlHttp.responseText, section: section})
 					}
 					else
-						error(xmlHttp, object);
+						error(xmlHttp);
 				}
 			};
 			xmlHttp.open("GET", url, true); // true for asynchronous
