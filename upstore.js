@@ -173,15 +173,18 @@ window.UPSTORE = {
 		for(i = 0;i<search.length;i++)
 		{
 			json = window.UPSTORE.dirtyJSON(search[i].getAttribute('upstore-style'))
-			if(typeof(json[key]) == 'string')
+			if(typeof(json[key]) != 'undefined')
 			{
-				search[i].style[json[key]] = value;
-			}
-			else {
-				var b;
-				for(b = 0;b<json[key].length;b++)
+				if(typeof(json[key]) == 'string')
 				{
-					search[i].style[json[key][b]] = value;
+					search[i].style[json[key]] = value;
+				}
+				else {
+					var b;
+					for(b = 0;b<json[key].length;b++)
+					{
+						search[i].style[json[key][b]] = value;
+					}
 				}
 			}
 		}
