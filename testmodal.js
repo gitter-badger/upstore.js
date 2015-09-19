@@ -4,7 +4,7 @@
 
 var APP_ID = "55eabf3f9fb5ba02465c90a2";
 $("modal").each(function() {
-	$(this).html(' \
+	$(this).css("display", "none").html(' \
 		<div class="modal-background" upstore-style=\'{ bgColor: "background-color" }\'></div>\
 		<div class="modal-container" upstore-style=\'{ bgColor: "background-color", borderWidth: "border-width", borderStyle: "border-style", borderColor: "border-color" }\'>\
 			<div class="modal-title" upstore-bind="title" upstore-style=\'{ headerBg: "background-color" }\'></div> \
@@ -51,6 +51,40 @@ $("modal").each(function() {
 	}
 	var ARR_KEY = $(this).attr('upstore-arr-key'), modal = this;
 	UPSTORE.retrieve(APP_ID, ARR_KEY, this).then(function(response) {
+		var time = window.localStorage.getItem("_modal_time");
+		var currentTime = new Date();
+		currentTime = currentTime.getDate()+"/"+(currentTime.getMonth()+1)+"/"+currentTime.getFullYear();
+		if(UPSTORE.showEditors)
+		{
+			$(modal).css("display", "block")
+			localStorage.setItem("_modal_time", currentTime)			
+		}
+		else {
+			if(response.hold == 1) {
+				if(!time || time != currentTime) {
+					$(modal).css("display", "block")
+					localStorage.setItem("_modal_time", currentTime)
+				}
+			}
+			else if(response.hold == 2) {
+				var secondCheck = (currentTime.getDate()+1)+"/"+(currentTime.getMonth()+1)+"/"+currentTime.getFullYear();
+				if(!time || time != currentTime || time != secondCheck) {
+					$(modal).css("display", "block")
+					localStorage.setItem("_modal_time", currentTime)
+				}
+			}
+			else if(response.hold == 7) {
+				var explode = time.slice("/");
+				if(!time || explode[1] != (new Date().getMonth()+1)) {
+					$(modal).css("display", "block")
+					localStorage.setItem("_modal_time", currentTime)
+				}
+			}
+			else if(response.hold == 0 && !time) {
+				$(modal).css("display", "block")
+				localStorage.setItem("_modal_time", currentTime)
+			}
+		}
 		var newVal;
 		Object.observe(UPSTORE.bindings[APP_ID][ARR_KEY], function(changes) {
 			if(changes[0].name == 'bgColor') {
