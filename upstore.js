@@ -121,11 +121,10 @@ window.UPSTORE = {
 	/**
 	 * Process the element's binding and options
 	 */
-	 process: function(appId, arrKey, element, properties)
-	 {
-		element.setAttribute('upstore-init', appId);
+	process: function(appId, arrKey, element, properties)
+	{
 		if(!window.UPSTORE.bindings[appId])
-			window.UPSTORE.bindings[appId] = {};
+	 		window.UPSTORE.bindings[appId] = {};
 		window.UPSTORE.bindings[appId][arrKey] = properties;
 		var key = "";
 		for(key in properties)
@@ -187,6 +186,18 @@ window.UPSTORE = {
 					}
 				}
 			}
+		}
+
+		// bind the classes
+		search = document.querySelectorAll(main+'[upstore-bind-class="'+key+'"], '+main+' [upstore-bind-class="'+key+'"]');
+		for(i = 0;i<search.length;i++)
+		{
+			var property = search[i].getAttribute('upstore-bind-class-old-value');
+			if(property != key)
+				search[i].className = search[i].className.replace(property, "");
+			// console.info(arguments)
+			search[i].className += " "+value;
+			search[i].setAttribute('upstore-bind-class-old-value', " "+value);
 		}
 	},
 }
