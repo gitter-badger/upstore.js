@@ -7,7 +7,7 @@ window.UPSTORE = {
 	/**
 	 * Authentication details
 	 */
-	consumerKey: "",
+	consumerKey: document.querySelector("[upstore-framework]").getAttribute("consumer-key"),
 
 	/**
 	 * Show editors of UPP
@@ -201,3 +201,19 @@ window.UPSTORE = {
 		}
 	},
 }
+
+setTimeout(function () {
+	if(!window.UPSTORE.loaded) {
+		window.UPSTORE.loaded = true;
+		if(UPSTORE.consumerKey.length > 0) {
+			var toInit = document.querySelectorAll("[upstore-init]:not([upstore-init-called])"), i;
+			for(i = 0;i<toInit.length;++i)
+			{
+				UPSTORE.newUpp(toInit[i].getAttribute("upstore-init"));
+			}
+		}
+		else {
+			console.warn("[UPSTORE] PLEASE SPECIFY YOUR CONSUMER-KEY")
+		}
+	}
+}, 0);
