@@ -199,6 +199,27 @@ window.UPSTORE = {
 			search[i].className += " "+value;
 			search[i].setAttribute('upstore-bind-class-old-value', " "+value);
 		}
+
+		// bind the attributes
+		search = document.querySelectorAll(main+'[upstore-attr*="'+key+'"], '+main+' [upstore-attr*="'+key+'"]');
+		for(i = 0;i<search.length;i++)
+		{
+			json = window.UPSTORE.dirtyJSON(search[i].getAttribute('upstore-attr'))
+			if(typeof(json[key]) != 'undefined')
+			{
+				if(typeof(json[key]) == 'string')
+				{
+					search[i].setAttribute(json[key], value);
+				}
+				else {
+					var b;
+					for(b = 0;b<json[key].length;b++)
+					{
+						search[i].setAttribute(json[key][b], value);
+					}
+				}
+			}
+		}
 	},
 }
 
