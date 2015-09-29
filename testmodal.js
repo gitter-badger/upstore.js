@@ -17,6 +17,10 @@
 			</div>\
 		')
 
+		if(!UPSTORE.showEditors) {
+			$(this).find(".modal-background").css("opacity", ".7");
+		}
+
 		window.closeModal = function(button, openAction)
 		{
 			if(UPSTORE.showEditors)
@@ -108,7 +112,12 @@
 				tinymce.init({
 				    selector: '.modal-content',
 				    inline: true,
-				    // toolbar: "undo redo",
+				    toolbar: [
+						"undo redo | styleselect | bold italic | link image alignleft aligncenter alignright | ltr rtl",
+					],
+					images_upload_url: "postAcceptor.php",
+					images_upload_base_path: "/some/basepath",
+					plugins: 'directionality image link',
 				    menubar: true,
 					setup: function(editor) {
 				        editor.on('blur', function(e) {
