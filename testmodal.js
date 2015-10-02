@@ -38,21 +38,16 @@
 		}
 
 		// convert a hexidecimal color string to 0..255 R,G,B
-		hexToRGB = function(hex){
-		    var r = hex >> 16;
-		    var g = hex >> 8 & 0xFF;
-		    var b = hex & 0xFF;
+		hexToRGB = function(color){
+		    var r = parseInt(color.substring(0,2),16);
+		    var g = parseInt(color.substring(2,4),16);
+		    var b = parseInt(color.substring(4,6),16);
 		    return [r,g,b];
 		}
 
 		function processColor(newVal)
 		{
-			if(newVal[0] == 0 && newVal[1] == 0 && newVal[2] == 0) {
-				$(modal).find(".modal-container .modal-title, .modal-container .modal-content").css("color", "#3d3d3d")
-			}
-			else {
-				$(modal).find(".modal-container .modal-title, .modal-container .modal-content").css("color", "#fff")
-			}
+			$(modal).find(".modal-container .modal-title, .modal-container .modal-content").css("color", "rgb("+(255 - newVal[0])+", "+(255 - newVal[0])+", "+(255 - newVal[0])+")")
 		}
 		var ARR_KEY = $(this).attr('upstore-arr-key'), modal = this;
 		UPSTORE.retrieve(APP_ID, ARR_KEY, this).then(function(response) {
@@ -93,7 +88,7 @@
 			var newVal;
 			Object.observe(UPSTORE.bindings[APP_ID][ARR_KEY], function(changes) {
 				if(changes[0].name == 'bgColor') {
-					newVal = hexToRGB(parseInt(changes[0].object.bgColor.replace("#", "")));
+					newVal = hexToRGB(changes[0].object.bgColor.replace("#", ""));
 					processColor(newVal);
 				}
 			});
