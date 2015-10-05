@@ -86,9 +86,9 @@
 				}
 			}
 			var newVal;
-			Object.observe(UPSTORE.bindings[APP_ID][ARR_KEY], function(changes) {
-				if(changes[0].name == 'bgColor') {
-					newVal = hexToRGB(changes[0].object.bgColor.replace("#", ""));
+			UPSTORE.watch(APP_ID, ARR_KEY, "*", function(changes) {
+				if(changes.key == 'bgColor') {
+					newVal = hexToRGB(changes.value.replace("#", ""));
 					processColor(newVal);
 				}
 			});

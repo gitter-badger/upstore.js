@@ -220,7 +220,45 @@ window.UPSTORE = {
 				}
 			}
 		}
+
+		if(window.UPSTORE.registeredWatchers.length > 0)
+		{
+			for(i = 0;i<window.UPSTORE.registeredWatchers.length;i++) {
+				watcher = window.UPSTORE.registeredWatchers[i];
+				if(watcher.appId == appId && watcher.arrKey == arrKey && (watcher.key == key || watcher.key == '*')) {
+					if(watcher.key == '*')
+						watcher.callback({
+							key: key,
+							value: value,
+						});
+					else
+						watcher.callback(value);
+				}
+			}
+		}
 	},
+
+	/**
+	 * Watch for binding updates
+	 * @param   {string}    appId
+	 * @param   {string}    arrKey
+	 * @param   {string}    key         Name of property
+	 * @param   {function}  callback    Function to be called
+	 */
+	watch: function(appId, arrKey, key, callback)
+	{
+		window.UPSTORE.registeredWatchers.push({
+			appId: appId,
+			arrKey: arrKey,
+			key: key,
+			callback: callback,
+		})
+	},
+
+	/**
+	 * Registered watchers
+	 */
+	registeredWatchers: [],
 }
 
 setTimeout(function () {
