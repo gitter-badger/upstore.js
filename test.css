@@ -12,6 +12,10 @@
 	-webkit-transition: .5s;
 }
 
+[upstore-init="55eabf3f9fb5ba02465c90a2"] * {
+	outline: none !important;
+}
+
 [upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-container
 {
 	position: fixed;

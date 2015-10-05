@@ -101,6 +101,7 @@
 			this.querySelector(".modal-title").addEventListener('keyup', function() {
 				window.UPSTORE.updateBinding(APP_ID, ARR_KEY, $(this).attr('upstore-bind'), $(this).html())
 			})
+			window.tinymceUpload.init(APP_ID, ARR_KEY, this);
 			var script = document.createElement("script");
 			script.src = "https://tinymce.cachefly.net/4.2/tinymce.min.js"
 			script.onload = function() {
@@ -119,6 +120,9 @@
 				            window.UPSTORE.updateBinding(APP_ID, ARR_KEY, "content", tinyMCE.activeEditor.getContent());
 				        });
 				    },
+					file_browser_callback: function(field_name, url, type, win) {
+				        if(type=='image') window.tinymceUpload.trigger();
+				    }
 				});
 			};
 			document.body.appendChild(script);
