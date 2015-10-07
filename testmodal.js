@@ -3,7 +3,7 @@
  */
 
 (function() {
-	var APP_ID = "55eabf3f9fb5ba02465c90a2";
+	var APP_ID = "561546ad9fb5ba090f01daa3";
 	$("modal").each(function() {
 		$(this).css("display", "none").html(' \
 			<div class="modal-background" upstore-style=\'{ bgColor: "background-color" }\'></div>\

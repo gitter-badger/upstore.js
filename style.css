@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"]
+[upstore-init="561546ad9fb5ba090f01daa3"]
 {
 	width: 100%;
 	height: 100%;
@@ -12,11 +12,11 @@
 	-webkit-transition: .5s;
 }
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"] * {
+[upstore-init="561546ad9fb5ba090f01daa3"] * {
 	outline: none !important;
 }
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-container
+[upstore-init="561546ad9fb5ba090f01daa3"] .modal-container
 {
 	position: fixed;
     top: 50%;
@@ -38,13 +38,13 @@
 
 @media (max-width: 500px)
 {
-	[upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-container
+	[upstore-init="561546ad9fb5ba090f01daa3"] .modal-container
 	{
 		width: 100%;
 	}
 }
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-title
+[upstore-init="561546ad9fb5ba090f01daa3"] .modal-title
 {
 	font-size: 40px;
 	text-align: center;
@@ -59,7 +59,7 @@
 	-webkit-border-top-right-radius: 3px;
 }
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-content
+[upstore-init="561546ad9fb5ba090f01daa3"] .modal-content
 {
 	padding: 30px 40px;
 	color: #fff;
@@ -68,16 +68,16 @@
     margin: 0 auto;
 }
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-content ul, [upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-content ol {
+[upstore-init="561546ad9fb5ba090f01daa3"] .modal-content ul, [upstore-init="561546ad9fb5ba090f01daa3"] .modal-content ol {
 	padding: 0 20px;
 }
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-content li {
+[upstore-init="561546ad9fb5ba090f01daa3"] .modal-content li {
 	margin-top: 10px;
 	color: inherit;
 }
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"] button {
+[upstore-init="561546ad9fb5ba090f01daa3"] button {
     font-size: 0.8em;
 	border: none;
     padding: 0.6em 1.2em;
@@ -95,7 +95,7 @@
 	-moz-transition: .3s;
 	-webkit-transition: .3s;
 }
-[upstore-init="55eabf3f9fb5ba02465c90a2"] button:active {
+[upstore-init="561546ad9fb5ba090f01daa3"] button:active {
 	background: rgba(0, 0, 0, .6);
 }
 
@@ -112,7 +112,7 @@
 }
 
 
-[upstore-init="55eabf3f9fb5ba02465c90a2"] .modal-close {
+[upstore-init="561546ad9fb5ba090f01daa3"] .modal-close {
 	position: absolute;
 	top: -10px;
 	left: -10px;
