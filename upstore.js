@@ -25,7 +25,8 @@ window.UPSTORE = {
 	server: {
 		base: "http://localhost/UPStore/server",
 		newUpp: "/upps/{appId}/{consumerKey}",
-		retrieve: "/upps/{appId}?consumerKey={consumerKey}&arrKey={arrKey}"
+		retrieve: "/upps/{appId}?consumerKey={consumerKey}&arrKey={arrKey}",
+		sendMail: "/emails/upp"
 	},
 
 	/**
@@ -259,6 +260,39 @@ window.UPSTORE = {
 	 * Registered watchers
 	 */
 	registeredWatchers: [],
+
+
+	/**
+	 * Send an email on behalf of the UPP
+	 * @param   {string}    appId
+	 * @param   {string}    arrKey
+	 * @param   {string}    data        Data to be sent to the user
+	 * @returns	{object}	Promise
+	 */
+	sendMail: function(appId, arrKey, body) {
+		var url = UPSTORE.server.base+UPSTORE.server.sendMail;
+		return new Promise(function(resolve, error) {
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.onreadystatechange = function() {
+				if (xmlHttp.readyState == 4) {
+					if(xmlHttp.responseText) {
+						resolve()
+					}
+					else
+						error(xmlHttp);
+				}
+			};
+
+			xmlHttp.open("PUT", url, true); // true for asynchronous
+			xmlHttp.setRequestHeader("Content-type", "application/json");
+			xmlHttp.send(JSON.stringify({
+				consumerKey: UPSTORE.consumerKey,
+				arrKey: arrKey,
+				appId: appId,
+				data: body
+			}));
+		})
+	}
 }
 
 setTimeout(function () {
