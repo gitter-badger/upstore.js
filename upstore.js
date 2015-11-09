@@ -26,7 +26,8 @@ window.UPSTORE = {
 		base: "http://localhost/UPStore/server",
 		newUpp: "/upps/{appId}/{consumerKey}",
 		retrieve: "/upps/{appId}?consumerKey={consumerKey}&arrKey={arrKey}",
-		sendMail: "/emails/upp"
+		sendMail: "/emails/upp",
+		upload: "/users/upload",
 	},
 
 	/**
