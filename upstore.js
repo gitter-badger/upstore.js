@@ -169,6 +169,16 @@ window.UPSTORE = {
 			search[i].innerHTML = value;
 		}
 
+		// then bind the remove from display
+		var main = '[upstore-init="'+appId+'"][upstore-arr-key="'+arrKey+'"]';
+		var i, search = document.querySelectorAll(main+'[upstore-if*="'+key+'"], '+main+' [upstore-if*="'+key+'"]'), json = {}, condition = "", passed = false;
+		for(i = 0;i<search.length;i++)
+		{
+			condition = search[i].getAttribute("upstore-if").replace(key, "");
+			passed = eval("value"+condition);
+			search[i].style.display = (passed ? 'block' : 'none');
+		}
+
 		// bind the styles
 		search = document.querySelectorAll(main+'[upstore-style*="'+key+'"], '+main+' [upstore-style*="'+key+'"]');
 		for(i = 0;i<search.length;i++)
