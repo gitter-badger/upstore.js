@@ -99,6 +99,9 @@ window.UPSTORE = {
 	 */
 	retrieve: function(appId, arrKey, element)
 	{
+		if(UPSTORE.showEditors && document.querySelector("[upstore-loader]")) {
+			document.body.removeChild(document.querySelector("[upstore-loader]"));
+		}
 		arrKey = arrKey||"customize";
 		var url = UPSTORE.server.base+UPSTORE.server.retrieve.replace("{appId}", appId).replace("{consumerKey}", UPSTORE.consumerKey).replace("{arrKey}", arrKey);
 		return new Promise(function(resolve, error) {
