@@ -23,7 +23,7 @@ window.UPSTORE = {
 	 * URL of the server
 	 */
 	server: {
-		base: "http://localhost/UPStore/server",
+		base: window.location.href.indexOf("localhost") > -1 ? "http://localhost/UPStore/server" : window.location.href.indexOf("stagingapi.upstore.io") > -1 ? "http://stagingapi.upstore.io" : 'http://api.upstore.io',
 		newUpp: "/upps/{appId}/{consumerKey}",
 		retrieve: "/upps/{appId}?consumerKey={consumerKey}&arrKey={arrKey}",
 		sendMail: "/emails/upp",
