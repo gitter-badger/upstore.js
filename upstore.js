@@ -23,7 +23,8 @@ window.UPSTORE = {
 	 * URL of the server
 	 */
 	server: {
-		base: window.location.href.indexOf("localhost") > -1 ? "http://localhost/UPStore/server" : window.location.href.indexOf("stagingapi.upstore.io") > -1 ? "http://stagingapi.upstore.io" : 'http://api.upstore.io',
+		base: window.location.href.indexOf("localhost") > -1 ? "http://localhost/UPStore/server" : window.location.href.indexOf("staging.upstore.io") > -1 ? "http://stagingapi.upstore.io" : 'http://api.upstore.io',
+		azure: window.location.href.indexOf("localhost") > -1 || window.location.href.indexOf("staging.upstore.io") > -1 ? "https://stagingupstore.blob.core.windows.net" : "https://upstore.blob.core.windows.net",
 		newUpp: "/upps/{appId}/{consumerKey}",
 		retrieve: "/upps/{appId}?consumerKey={consumerKey}&arrKey={arrKey}",
 		sendMail: "/emails/upp",
