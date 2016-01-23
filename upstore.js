@@ -25,7 +25,7 @@ window.UPSTORE = {
 	server: {
 		base: window.location.href.indexOf("localhost") > -1 ? "http://localhost/UPStore/server" : window.location.href.indexOf("stagingapi.upstore.io") > -1 || document.querySelector("[upstore-framework]").getAttribute('src') == 'http://staging.upstore.io/upstore.js' ? "http://stagingapi.upstore.io" : 'http://api.upstore.io',
 		azure: window.location.href.indexOf("localhost") > -1 || window.location.href.indexOf("stagingapi.upstore.io") > -1 ? "https://stagingupstore.blob.core.windows.net" : "https://upstore.blob.core.windows.net",
-		newUpp: "/upps/{appId}/{consumerKey}",
+		newUpp: "/upps/{appId}/{consumerKey}?arrKey={arrKey}",
 		retrieve: "/upps/{appId}?consumerKey={consumerKey}&arrKey={arrKey}",
 		sendMail: "/emails/upp",
 		upload: "/users/upload",
@@ -34,11 +34,11 @@ window.UPSTORE = {
 	/**
 	 * Get new app for current website
 	 */
-	newUpp: function(appId)
+	newUpp: function(appId, arrKey)
 	{
 		// promise of new app when ready
 		return new Promise(function(resolve, error) {
-			var xmlHttp = new XMLHttpRequest(), url = UPSTORE.server.base+UPSTORE.server.newUpp.replace("{appId}", appId).replace("{consumerKey}", UPSTORE.consumerKey);
+			var xmlHttp = new XMLHttpRequest(), url = UPSTORE.server.base+UPSTORE.server.newUpp.replace("{appId}", appId).replace("{arrKey}", arrKey).replace("{consumerKey}", UPSTORE.consumerKey);
 			xmlHttp.onreadystatechange = function() {
 				if (xmlHttp.readyState == 4) {
 					var json = JSON.parse(xmlHttp.responseText);
@@ -317,7 +317,7 @@ setTimeout(function () {
 			var toInit = document.querySelectorAll("[upstore-init]:not([upstore-init-called])"), i;
 			for(i = 0;i<toInit.length;++i)
 			{
-				UPSTORE.newUpp(toInit[i].getAttribute("upstore-init"));
+				UPSTORE.newUpp(toInit[i].getAttribute("upstore-init"), toInit[i].getAttribute("upstore-arr-key"));
 			}
 		}
 		else {
