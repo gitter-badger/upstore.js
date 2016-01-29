@@ -19,6 +19,9 @@ window.UPSTORE = {
 	 */
 	upps: [],
 
+	/**
+	 * Landscape mode (STAGING/PRODUCTION)
+	 **/
 	landscape: window.location.href.indexOf("stagingapi.upstore.io") > -1 || document.querySelector("[upstore-framework]").getAttribute('src') == 'http://staging.upstore.io/upstore.js' ? 'STAGING' : 'PRODUCTION',
 
 	/**
