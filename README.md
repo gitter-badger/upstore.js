@@ -3,6 +3,7 @@ UPSTORE is a marketplace for web developers. Our goal is to deliver a clear cust
 
 ## Developing
 The upstore.js framework does not require any 3rd party dependency, and does not interrupt existing ones. To register to the UPSTORE developers ALPHA program, please visit: http://developer.upstore.io.
+
 ![Example Screenshot](https://stagingupstore.blob.core.windows.net/55fedfb19fb5ba02143a7871-screenshots/2.png "Example Screenshot")
 
 ## Support
