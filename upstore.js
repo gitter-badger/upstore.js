@@ -20,16 +20,12 @@ window.UPSTORE = {
 	upps: [],
 
 	/**
-	 * Landscape mode (STAGING/PRODUCTION)
-	 **/
-	landscape: window.location.href.indexOf("stagingapi.upstore.io") > -1 || document.querySelector("[upstore-framework]").getAttribute('src') == 'http://staging.upstore.io/upstore.js' ? 'STAGING' : 'PRODUCTION',
-
-	/**
 	 * URL of the server
 	 */
 	server: {
-		base: UPSTORE.landscape == 'STAGING' ? "http://stagingapi.upstore.io" : 'http://api.upstore.io',
-		azure: UPSTORE.landscape == 'STAGING' ? "https://stagingupstore.blob.core.windows.net" : "https://upstore.blob.core.windows.net",
+		landscape: window.location.href.indexOf("stagingapi.upstore.io") > -1 || document.querySelector("[upstore-framework]").getAttribute('src') == 'http://staging.upstore.io/upstore.js' ? 'STAGING' : 'PRODUCTION',
+		base: this.landscape == 'STAGING' ? "http://stagingapi.upstore.io" : 'http://api.upstore.io',
+		azure: this.landscape == 'STAGING' ? "https://stagingupstore.blob.core.windows.net" : "https://upstore.blob.core.windows.net",
 		newUpp: "/upps/{appId}/{consumerKey}?arrKey={arrKey}",
 		retrieve: "/upps/{appId}?consumerKey={consumerKey}&arrKey={arrKey}",
 		sendMail: "/emails/upp",
